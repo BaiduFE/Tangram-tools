@@ -1,0 +1,11 @@
+Tangram自动打包工具，能扫描你的源代码中用到的Tangram模块，并将这些模块的代码抽取出来压缩打包，以减少线上代码体积。目前只抽取Tangram-base的内容。
+
+USAGE:
+[命令行]
+php custom.php --path= [--source=]
+--path 你的源代码路径
+--source tangram源代码路径
+
+[web]
+http://localhost/custom/custom.php
+
