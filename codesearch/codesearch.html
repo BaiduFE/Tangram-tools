@@ -1,0 +1,213 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name="keywords" content="Tangram, Tangram Base, Tangram Component, 七巧板, 百度FE, Javascript库, Javascript框架" />
+<meta name="description" content="Tangram是一套简单可依赖的Javascript库，能带给您良好的js开发体验" >
+<title>Tangram Code Search</title>
+<script src="csres/tangram-1.3.2.js" charset="utf-8"></script>
+<link href="csres/index.css" rel="stylesheet" type="text/css"></link>
+<link href="csres/cs2.css" rel="stylesheet" type="text/css"></link>
+<script type="text/javascript" src="csres/apidata.js"></script>
+<style>
+/* 通用效果 */
+.button1{
+display:block; height:39px;  width:169px; background:url(csres/tolook.png) no-repeat;line-height:37px; font-size:15px; color:#fff; text-align:center; text-decoration:none; margin:20px auto;border:0;}
+.button1:hover{
+background:url(csres/tolook_b.png) no-repeat;color:#fff;border:0;}
+.tips{
+    padding:16px 0;
+    color:#4C5656;
+    font:14px/20px "Arial";
+}
+.main{
+margin:0 20px;}
+.main h3{
+font-size:18px;color:#567ea7;font-weight:normal;padding:13px 0;}
+.main h4{
+padding:7px 0;}
+.main code{
+margin:13px 0;padding:0 13px;display:block;background:#ddd;}
+.main ul,.main ol{
+padding:13px 26px;}
+.main ul,.main li{
+list-style:square;}
+.main table {
+background:none;}
+.main tbody td {
+	font:normal 14px/20px arial,simsun;
+	color:#4C5656;
+	background:none;
+}
+.side-title {
+	font-size:14px;
+	border-left:2px solid #D76262;
+	padding-left:5px;
+	margin:5px 0 10px 0;
+	color:#D76262;
+}
+.toc {
+	color:#4C5656;
+}
+
+
+/* document toc */
+.toc-outer{
+    border:10px solid #f2f5f5;
+    float:right;
+    width:220px;
+}
+.toc {
+    padding:10px;
+    border:1px solid #e4e7e7;
+    background:#fff;
+    width:198px;
+    margin-bottom:10px;
+}
+.toc-title {
+    color:#788;
+    font:bold 14px/20px arial;
+}
+.toc-title small{
+    font-size:12px;
+    font-weight:normal;
+    padding-left:6px;
+    cursor:pointer;
+}
+.toc-list{
+margin-top:10px;}
+.toc-list h1,
+.toc-list h2,
+.toc-list h3 {
+    margin:0;
+    padding:0 0 0 12px;
+    font:normal 12px/22px arial;
+    color:#4c5555;
+    border:0;
+}
+.toc-list h1 {
+background:url(csres/h1.gif) 2px 8px no-repeat;}
+.toc-list h2 {
+background:url(csres/h2.gif) 2px 8px no-repeat;margin-left:12px;}
+.toc-list h3 {
+background:url(csres/h3.gif) 2px 8px no-repeat;margin-left:24px;}
+.toc-list a {
+color:#4c5555;}
+.toc-list a:hover {
+color:#66CC66;text-decoration:underline;}
+#cswraper p {
+    padding:0 0 16px 0;
+    color:#4C5656;
+    font:14px/20px "Arial";
+}
+.main .title{
+font-size:20px;}
+#viewCodeBtn{
+	background: url(csres/tolook.png) no-repeat;
+}
+</style>
+
+<!-- title:Code Search -->
+</head>
+<body>
+<div class="wrapper">
+	<!-- generate by tangram -->
+<!-- header start -->
+	<div class="header">
+		<div class="nav clearfix">			
+			
+			<a href="http://tangram.baidu.com/tangram/index.html" >首页</a>
+			
+            
+			<a href="http://tangram.baidu.com/tangram/download.html" class="nurnav">下载</a>
+			
+
+           <div class="menu" onmouseover="document.getElementById('docSubTab').style.display='block'" onMouseOut="document.getElementById('docSubTab').style.display='none'">
+           		
+                <a href="#">文档</a>
+                
+                <div class="subMenu" id="docSubTab">
+                    <a href="http://tangram.baidu.com/tangram/tutorial.html">新手入门</a>
+                    <a href="http://tangram.baidu.com/tangram/doc_index.html">Base文档</a>
+                    <a href="http://tangram.baidu.com/tangram-component/index.html">Component文档</a>
+					<div class="fixfloat"></div>
+                </div>
+            </div>
+
+           <div class="menu" onmouseover="document.getElementById('moreSubTab').style.display='block'" onMouseOut="document.getElementById('moreSubTab').style.display='none'">
+           		
+           		<a href="#">更多</a>
+           		
+                <div class="subMenu" id="moreSubTab">
+                	<a href="http://tangram.baidu.com/tangram/faq.html">FAQ</a>
+                    <a href="http://www.baiduux.com/tag/tangram">BLOG</a>
+                    <a href="http://tieba.baidu.com/f?kw=tangram">社区</a>
+                    <a href="http://tangram.baidu.com/tangram/about.html">关于</a>
+                    <a href="http://tangram.baidu.com/tangram-more/contribution.html">贡献</a>
+                    <div class="fixfloat"></div>
+                </div>
+            </div>
+
+			<div class="nav_form_div">
+					
+						<div class="input_text_div">
+							<input type="text" class="nav_text" id="search-input">
+						</div>
+
+						<img src="csres/submit_bg.gif" align="absmiddle"/>
+					
+			</div>
+			<div class="nav_angle01"></div>
+			<div class="nav_angle02"></div>
+		</div>
+
+		<div class="logo"><a href="../"></a></div>		
+	</div>
+	<!--  header end -->
+
+	<!--  container start -->
+	<div class="container">
+
+        <div class="container_angle_left"></div>
+        <div class="container_angle_right"></div>
+		<div class="container_inner clearfix">
+                <div class="main" id="Content">
+                	<div id="codeSearch">
+                    </div>
+            </div>
+            <div class="main search_result" id="SearchResult"  style="display:none"> </div>
+        </div>
+
+		<div class="ft">Copyright  &copy; 2010  Baidu </div>
+<div style="display:none">
+<script type="text/javascript">
+ var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F350d52b8603c1b30ceb3ebe2803f453a' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+	</div>
+
+	<div class="tail"></div>
+
+	<!--  container end -->
+</div>
+<script>
+  var config = {
+        docbase:'',//html文档路径的基地址
+        cswraper:'cswraper', //显示模块列表的容器id
+        csfrom:'csfrom',//代码下载表单id
+        csimports:'csimports',//显示imports列表的容器id
+        tag:"1.3.4",
+        codePath: "script/code.php",
+        hashPath: "script/hash.php",
+        dataNightlyPath : "csres/csdeps_nightly.js",
+        dataStablePath : "csres/csdeps_stable.js"
+    }
+</script>
+<script type="text/javascript" src="csres/cs2.js"></script>
+<script type="text/javascript" src="csres/md5.js"></script>
+<script type="text/javascript" src="csres/doc.js"></script>
+</body>
+</html>
+

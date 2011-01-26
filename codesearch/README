@@ -1,0 +1,13 @@
+[使用]
+1.启动apache(或其他web service)和php
+2.在浏览器中输入 http://localhost/PathToCodeSearch/codesearch.html
+这里PathTocideSearch指的是本程序相对于web服务目录的路径
+如果web service配置的不是80端口，则localhost后还需配置相应的端口号
+
+[各目录内容]
+./csres/    存放codesearch.html需要的静态文件
+./src/      存放codesearch需要的源代码
+./script/   存放实现codesearch search,压缩等功能的php代码
+./etc/      存放其他内容
+
+

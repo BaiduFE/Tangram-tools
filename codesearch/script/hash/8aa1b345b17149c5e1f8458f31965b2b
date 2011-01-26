@@ -1,0 +1,1 @@
+#stable|modules;baidu.ui.Base.getParent;baidu.ui.Base.setParent;baidu.ui.behavior.decorator;baidu.ui.behavior.draggable;baidu.ui.behavior.droppable;baidu.ui.behavior.resizable;baidu.ui.behavior.statable;baidu.ui.behavior.statable.setStateHandler;baidu.ui.behavior.switchable;baidu.ui.create;baidu.ui.createUI;baidu.ui.get;baidu.ui.smartCover

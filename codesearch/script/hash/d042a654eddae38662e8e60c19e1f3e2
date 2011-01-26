@@ -1,0 +1,1 @@
+#stable|modules;baidu.page.createStyleSheet;baidu.page.getHeight;baidu.page.getMousePosition;baidu.page.getScrollLeft;baidu.page.getScrollTop;baidu.page.getViewHeight;baidu.page.getViewWidth;baidu.page.getWidth;baidu.page.loadCssFile;baidu.page.loadJsFile
