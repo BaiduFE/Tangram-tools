@@ -1,0 +1,155 @@
+#cswraper{
+    font-family:"monaco","consolas","monospace";
+}
+
+html > body .inline-block {
+    display: -moz-inline-box;
+    display: inline-block;
+}
+.inline-block {
+    position: relative;
+    display: inline-block;
+}* html .inline-block {
+    display: inline;
+}*:first-child + html .inline-block {
+    display: inline;
+}
+.package{
+    font-size:200%;
+    font-weight:bold;
+    color:#FF3366;
+    cursor:pointer;
+}
+.package .fold{
+    width:12px;
+    height:12px;
+    vertical-align:middle;
+    margin-right:2px;
+    cursor:pointer;
+}
+
+/*
+.packagefold .fold{
+    background:url(http://www.freeiconsweb.com/Icons/16x16_arrow_icons/arrow_127.gif) no-repeat 50% 50%; 
+}
+.packageunfold .fold{
+    background:url(http://www.freeiconsweb.com/Icons/16x16_arrow_icons/arrow_128.gif) no-repeat 50% 50% ;
+}
+*/
+
+.package .select{
+    width:12px;
+    height:12px;
+    border:2px solid #666;
+    vertical-align:middle;
+    margin-right:4px;
+    cursor:pointer;
+				background:#f2f5f5; 
+	_width:14px;
+	_margin:2px;
+}
+
+.package-select{color:#555;}
+.package-select .select{ background:#459800;}
+.package-parselect{}
+.package-parselect .select{background-color:#d5cd76;}
+
+.function{
+    font-size:150%;
+}
+.function .select{
+    width:12px;
+    height:12px;
+    border:2px solid #666;
+    vertical-align:middle;
+    margin-right:4px;
+    cursor:pointer;
+	background:#F2F5F5; 
+	_width:14px;
+	_margin:2px;
+}
+
+.function-select{
+    color:#555;
+}
+.function-select .select{
+    background:#459800;
+}
+.function-depselect{}
+.function-depselect .select{
+    background-color:#d5cd76;
+}
+
+table {
+	background:none;
+}
+tbody td {
+	font:normal 14px/20px arial,simsun;
+	color:#4C5656;
+	background:none;
+}
+.side-title {
+	font-size:14px;
+	border-left:2px solid #D76262;
+	padding-left:5px;
+	margin:5px 0 10px 0;
+	color:#D76262;
+}
+#viewCodeBtn{
+	background: url(../assets/tolook.png) no-repeat;
+	border: 0px;
+	color: white;
+	display: block;
+	font-size: 15px;
+	height: 39px;
+	line-height: 37px;
+	margin: 20px auto;
+	text-align: center;
+	text-decoration: none;
+	width: 169px;
+}
+#codesearchTitle{
+	margin:0;
+}
+#codesearchTip{
+	padding:5px;
+}
+#codeserachExportDiv{
+	text-align:right;
+	padding-right:20px;
+}
+#codeserachExport{
+	border:1px solid #666;
+	background:#eee;
+	padding:1px 5px;
+}
+.toc-outer {
+	border: 10px solid #F2F5F5;
+	float: right;
+	width: 220px;
+}
+.toc {
+	background: white;
+	border: 1px solid #E4E7E7;
+	margin-bottom: 10px;
+	padding: 10px;
+	width: 198px;
+	color: #4C5656;
+}
+#csimports{
+	padding:3px;
+	border:1px solid #999;
+	background-color:#fafafa;
+	width:90%;
+	height:80px;
+}
+.csimports_desc{
+	font-size:12px;
+	width:90%;
+	margin:3px;
+	line-height:16px;
+}
+#versionSelect{
+	width:150px;
+	padding:1px;
+}
