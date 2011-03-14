@@ -3,11 +3,10 @@ include "MergeSource.php";
 include "JSPacker.php";
 include "JSMin.php";
 
-
-function do_merge($version, $src, $project, $nobase, $compress, $viewSource) {
+function do_merge($version, $src, $nobase, $compress, $viewSource) {
 
 	$m = new MergeSource();
-	$code = $m->merge($version, $src, $project, $nobase);
+	$code = $m->merge($version, $src, $nobase);
 	if (!$viewSource) {
 		try {
 			if ($compress == "yui") {
@@ -48,11 +47,9 @@ function do_merge($version, $src, $project, $nobase, $compress, $viewSource) {
 }
 
 //版本
-$version = $_REQUEST["version"] == "nightly" ? "nightly" : "stable";
+$version = $_REQUEST["version"];
 //导入的 包
 $src = $_REQUEST["src"];
-//base or component or others
-$project = $_REQUEST["project"] == "base" ? "tangram" : "tangram-component";
 //是否不包含base部分
 $nobase = !isset($_REQUEST["nobase"]) || strtolower($_REQUEST["nobase"]) == "false" ? false : true;
 //压缩类型  yui  mini  pack  其他值为不压缩
@@ -62,7 +59,7 @@ $viewSource = !isset($_REQUEST["viewSource"]) || strtolower($_REQUEST["viewSourc
 
 header("Cache-Control: no-cache, no-store, max-age=0, must-revalidate");
 header("Pragma: no-cache");
-$code = do_merge($version, $src, $project, $nobase, $compress, $viewSource);
+$code = do_merge($version, $src, $nobase, $compress, $viewSource);
 if ($viewSource || $compress == "source") {
 	$code = preg_replace("/\/\/ Copy.*?\/\/ limitations under the License\.?/msi", "", $code);
 	$code = preg_replace("/\/\*\s*\*\s*Tangram.*?\*\/\n*/msi", "", $code);

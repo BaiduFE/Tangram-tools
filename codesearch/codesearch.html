@@ -5,16 +5,16 @@
 <meta name="keywords" content="Tangram, Tangram Base, Tangram Component, 七巧板, 百度FE, Javascript库, Javascript框架" />
 <meta name="description" content="Tangram是一套简单可依赖的Javascript库，能带给您良好的js开发体验" >
 <title>Tangram Code Search</title>
-<script src="csres/tangram-1.3.2.js" charset="utf-8"></script>
-<link href="csres/index.css" rel="stylesheet" type="text/css"></link>
-<link href="csres/cs2.css" rel="stylesheet" type="text/css"></link>
-<script type="text/javascript" src="csres/apidata.js"></script>
+<script src="static/tangram-1.3.2.js" charset="utf-8"></script>
+<link href="static/index.css" rel="stylesheet" type="text/css"></link>
+<link href="static/cs2.css" rel="stylesheet" type="text/css"></link>
+<script type="text/javascript" src="static/apidata.js"></script>
 <style>
 /* 通用效果 */
 .button1{
-display:block; height:39px;  width:169px; background:url(csres/tolook.png) no-repeat;line-height:37px; font-size:15px; color:#fff; text-align:center; text-decoration:none; margin:20px auto;border:0;}
+display:block; height:39px;  width:169px; background:url(static/tolook.png) no-repeat;line-height:37px; font-size:15px; color:#fff; text-align:center; text-decoration:none; margin:20px auto;border:0;}
 .button1:hover{
-background:url(csres/tolook_b.png) no-repeat;color:#fff;border:0;}
+background:url(static/tolook_b.png) no-repeat;color:#fff;border:0;}
 .tips{
     padding:16px 0;
     color:#4C5656;
@@ -86,11 +86,11 @@ margin-top:10px;}
     border:0;
 }
 .toc-list h1 {
-background:url(csres/h1.gif) 2px 8px no-repeat;}
+background:url(static/h1.gif) 2px 8px no-repeat;}
 .toc-list h2 {
-background:url(csres/h2.gif) 2px 8px no-repeat;margin-left:12px;}
+background:url(static/h2.gif) 2px 8px no-repeat;margin-left:12px;}
 .toc-list h3 {
-background:url(csres/h3.gif) 2px 8px no-repeat;margin-left:24px;}
+background:url(static/h3.gif) 2px 8px no-repeat;margin-left:24px;}
 .toc-list a {
 color:#4c5555;}
 .toc-list a:hover {
@@ -103,7 +103,7 @@ color:#66CC66;text-decoration:underline;}
 .main .title{
 font-size:20px;}
 #viewCodeBtn{
-	background: url(csres/tolook.png) no-repeat;
+	background: url(static/tolook.png) no-repeat;
 }
 </style>
 
@@ -154,7 +154,7 @@ font-size:20px;}
 							<input type="text" class="nav_text" id="search-input">
 						</div>
 
-						<img src="csres/submit_bg.gif" align="absmiddle"/>
+						<img src="static/submit_bg.gif" align="absmiddle"/>
 					
 			</div>
 			<div class="nav_angle01"></div>
@@ -179,12 +179,6 @@ font-size:20px;}
         </div>
 
 		<div class="ft">Copyright  &copy; 2010  Baidu </div>
-<div style="display:none">
-<script type="text/javascript">
- var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
- document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F350d52b8603c1b30ceb3ebe2803f453a' type='text/javascript'%3E%3C/script%3E"));
-</script>
-</div>
 
 	</div>
 
@@ -201,13 +195,34 @@ font-size:20px;}
         tag:"1.3.4",
         codePath: "script/code.php",
         hashPath: "script/hash.php",
-        dataNightlyPath : "csres/csdeps_nightly.js",
-        dataStablePath : "csres/csdeps_stable.js"
+        project:[
+           {
+               name: "Tangram-mobile",/*必须为英文*/
+               data:"static/data/Tangram-mobile.js",
+               nickname: "mobile"/*可以为中文*/
+            },{
+                name:"tangram-component_nightly",
+                data:"static/data/tangram-component_nightly.js",
+                nickname:"component开发版"
+           },{
+                name:"tangram-component_stable",
+                data:"static/data/tangram-component_stable.js",
+                nickname:"component稳定版"
+           },{
+                name:"tangram_nightly",
+                data:"static/data/tangram_nightly.js",
+                nickname:"base开发版"
+           },{
+                name:"tangram_stable",
+                data:"static/data/tangram_stable.js",
+                nickname:"base稳定版"
+            }
+        ]
     }
 </script>
-<script type="text/javascript" src="csres/cs2.js"></script>
-<script type="text/javascript" src="csres/md5.js"></script>
-<script type="text/javascript" src="csres/doc.js"></script>
+<script type="text/javascript" src="static/cs2.js"></script>
+<script type="text/javascript" src="static/md5.js"></script>
+<script type="text/javascript" src="static/doc.js"></script>
 </body>
 </html>
 

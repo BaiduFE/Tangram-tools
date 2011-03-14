@@ -8,16 +8,14 @@ class MergeSource {
 	
 	public $version;
 	public $src;
-	public $project;
 	public $nobase;
 	
     public function __construct(){
     }
 	
-	public function merge($version, $src, $project, $nobase) {
+	public function merge($version, $src, $nobase) {
 		$this->version = $version;
 		$this->src = $src;
-		$this->project = $project;
 		$this->nobase = $nobase;
 		return preg_replace_callback($this->patten, array($this, 'mergeCallback'), $src);
 	}
@@ -25,17 +23,16 @@ class MergeSource {
 	public function mergeCallback($match) {
 		$module = trim($match[1]);
 		
-		if (!$this->mergedCode[$module]) {
+		if (empty($this->mergedCode[$module])) {
 			$this->mergedCode[$module] = true;
 			$module = str_replace(".", "/", $module) . ".js";
 			
-			$filePath = $this->filePathJoin(MY_DIR, $this->version, $this->project, $module);
-			$subfolder = file_exists($filePath) ? $this->project : 'tangram';
-			if ($this->nobase && $subfolder == 'tangram') {
+			$filePath = $this->filePathJoin(MY_DIR, $this->version ,$module);
+			if ($this->nobase) {
 				return "/* BASE: $module */";
 			}
 			
-			$realpath = $this->filePathJoin(MY_DIR, $this->version, $subfolder, $module);
+			$realpath = $this->filePathJoin(MY_DIR, $this->version, $module);
 			if (!file_exists($realpath)) {
 				return "//NOT found $module \n";
 			}
