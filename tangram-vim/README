@@ -1,0 +1,12 @@
+Tangram vim插件
+作者:小强
+======================================================
+安装(INSTALL):
+
+UNIX && LINUX:
+1. cp tangramComplete.vim ~/.vim/autoload/
+2. cp tangramdictionay.vim ~/.vim/plugin/
+
+WINDOWS:
+1.将tangramComplete.vim 拷贝到 vimfiles/autoload/ 下
+2.将tangramdictionay.vim 拷贝到 vimfiles/plugin/  下
