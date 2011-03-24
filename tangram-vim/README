@@ -1,7 +1,7 @@
 Tangram vim插件
 作者:小强
 ======================================================
-安装(INSTALL):
+安装:
 
 UNIX && LINUX:
 1. cp tangramComplete.vim ~/.vim/autoload/
@@ -10,3 +10,6 @@ UNIX && LINUX:
 WINDOWS:
 1.将tangramComplete.vim 拷贝到 vimfiles/autoload/ 下
 2.将tangramdictionay.vim 拷贝到 vimfiles/plugin/  下
+
+使用:
+使用 Ctrl + n 补全关键字
