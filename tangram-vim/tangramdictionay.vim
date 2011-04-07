@@ -1,21 +1,27 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Copyright (C) 2010 xiaoqiang@baidu.com
+" Copyright (C) 2010 zhengqianglong@baidu.com
 "
 " Name: tangramdictionay.vim
 " Description: Dictionaries of Tangram Library used for tangram completion
 " Author: zhengqianglong
 " Mail: zhengqianglong@baidu.com
-" Last Modified: Dec 13, 2010
-" Version: 1.0
+" Last Modified: Apr 06, 2011
+" Version: 2.0
 " ChangeLog: 
-"           created  2010/11/13
+" 1. 创建字典支持Tangram1.1.0
+" 2. tangramcomplete的相关配置项
+"           created 1.0  2010/11/13
+" -------------------------------------------
+" 1. 修改了自动命令的相关实现，提升交互体验
+" 2. 完善tangramdictionary，支持Tangram1.3.5
+"           updated to 2.0 2011/04/06
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if exists('g:tangram_dictionay')
     finish
 endif
 
-set completeopt=longest
+set completeopt=menu,menuone
 
 " mapping keys trigger
 let g:tangram_mapping_driven = [
@@ -27,7 +33,7 @@ let g:tangram_mapping_driven = [
             \'Q','R','S','T','U','V','W','X','Y','Z',
             \'.','<BS>']
 for key in g:tangram_mapping_driven
-    execute printf('au FileType javascript inoremap <silent> <buffer> %s %s<C-x><C-o>',key,key)
+    execute printf('au FileType javascript inoremap <silent> <buffer> %s %s<C-x><C-o><C-r>=tangramcomplete#onPopupPost()<CR>',key,key)
 endfor
 autocmd FileType javascript set omnifunc=tangramcomplete#CompleteTangram
 
@@ -36,615 +42,739 @@ let g:tangram_dictionay = []
 "/-------------------------------------------
 " base shortups {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.G',
+            \   'word' : '.G',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.Q',
+            \   'word' : '.Q',
             \   'menu' : '(className,[element,[tagName]])',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.g',
+            \   'word' : '.g',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.q',
+            \   'word' : '.q',
             \   'menu' : '(className,[element,[tagName]])',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.addClass',
+            \   'word' : '.addClass',
             \   'menu' : '(element,className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.each',
+            \   'word' : '.each',
             \   'menu' : '(source, iterator)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.encodeHTML',
+            \   'word' : '.encodeHTML',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.decodeHTML',
+            \   'word' : '.decodeHTML',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.extend',
+            \   'word' : '.extend',
             \   'menu' : '(target,source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.format',
+            \   'word' : '.format',
             \   'menu' : '(source,opts)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.getAttr',
+            \   'word' : '.getAttr',
             \   'menu' : '(element,key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.getStyle',
+            \   'word' : '.getStyle',
             \   'menu' : '(element,key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.hide',
+            \   'word' : '.hide',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ie',
+            \   'word' : '.ie',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.inherits',
+            \   'word' : '.inherits',
             \   'menu' : '(subClass,superClass)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.insertHTML',
+            \   'word' : '.insertHTML',
             \   'menu' : '(element,position,html)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.isObject',
+            \   'word' : '.isObject',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.isString',
+            \   'word' : '.isString',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.on',
+            \   'word' : '.on',
             \   'menu' : '(element, type, listener)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.removeClass',
+            \   'word' : '.removeClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.setAttr',
+            \   'word' : '.setAttr',
             \   'menu' : '(element, attributes)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.setAttrs',
+            \   'word' : '.setAttrs',
             \   'menu' : '(element, attributes)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.setStyle',
+            \   'word' : '.setStyle',
             \   'menu' : '(element, key, value)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.setStyles',
+            \   'word' : '.setStyles',
             \   'menu' : '(element, styles)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.show',
+            \   'word' : '.show',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.trim',
+            \   'word' : '.trim',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.un',
+            \   'word' : '.un',
             \   'menu' : '(element, type, listener)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Date Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.date',
+            \   'word' : '.date',
             \   'menu' : '{format, parse}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.date.format',
+            \   'word' : '.date.format',
             \   'menu' : '(source, pattern)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.date.parse',
+            \   'word' : '.date.parse',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Dom Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom',
+            \   'word' : '.dom',
             \   'menu' : '{addClass, create, ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.addClass',
+            \   'word' : '.dom.addClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.children',
+            \   'word' : '.dom.children',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.contains',
+            \   'word' : '.dom.contains',
             \   'menu' : '(container, contained)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.create',
-            \   'menu' : '(tagName, options)',
-            \   'kind' : 'func'
+            \   'word' : '.dom.create',
+            \   'menu' : '(tagName [,options])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.drag',
+            \   'word' : '.dom.ddManager',
+            \   'menu' : '(element ,options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.drag',
             \   'menu' : '(element, options)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.draggable',
+            \   'word' : '.dom.draggable',
             \   'menu' : '(element, options)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.empty',
+            \   'word' : '.dom.droppable',
+            \   'menu' : '(element [,options])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.empty',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.first',
+            \   'word' : '.dom.first',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.g',
+            \   'word' : '.dom.g',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getAncestorBy',
+            \   'word' : '.dom.getAncestorBy',
             \   'menu' : '(element, method)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getAncestorByTag',
+            \   'word' : '.dom.getAncestorByTag',
             \   'menu' : '(element, tagName)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getAncestorByClass',
+            \   'word' : '.dom.getAncestorByClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getAttr',
+            \   'word' : '.dom.getAttr',
             \   'menu' : '(element, key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getDocument',
-            \   'menu' : '(element)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getPosition',
-            \   'menu' : '(element)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getStyle',
+            \   'word' : '.dom.getComputedStyle',
             \   'menu' : '(element, key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getText',
+            \   'word' : '.dom.getDocument',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.getWindow',
+            \   'word' : '.dom.getParent',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.hasAttr',
+            \   'word' : '.dom.getPosition',
+            \   'menu' : '(element)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.getStyle',
+            \   'menu' : '(element, key)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.getText',
+            \   'menu' : '(element)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.getWindow',
+            \   'menu' : '(element)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.hasAttr',
             \   'menu' : '(element, name)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.hasClass',
+            \   'word' : '.dom.hasClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.hide',
+            \   'word' : '.dom.hide',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.insertAfter',
+            \   'word' : '.dom.insertAfter',
             \   'menu' : '(newElement, existElement)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.insertBefore',
+            \   'word' : '.dom.insertBefore',
             \   'menu' : '(newElement, existElement)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.insertHTML',
+            \   'word' : '.dom.insertHTML',
             \   'menu' : '(element, position, html)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.intersect',
+            \   'word' : '.dom.intersect',
             \   'menu' : '(element1, element2)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.last',
+            \   'word' : '.dom.last',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.next',
+            \   'word' : '.dom.next',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.prev',
+            \   'word' : '.dom.prev',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.q',
-            \   'menu' : '(className, element, tagName)',
-            \   'kind' : 'func'
+            \   'word' : '.dom.q',
+            \   'menu' : '(className [, element, tagName])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.query',
-            \   'menu' : '(selector, context, results)',
-            \   'kind' : 'func'
+            \   'word' : '.dom.query',
+            \   'menu' : '(selector [, context, results])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.ready',
+            \   'word' : '.dom.ready',
             \   'menu' : '(callback)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.removeClass',
+            \   'word' : '.dom.remove',
+            \   'menu' : '(element)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.removeClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.setAttr',
+            \   'word' : '.dom.removeStyle',
+            \   'menu' : '(element, styleName)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.resizable',
+            \   'menu' : '(element [,options])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.setAttr',
             \   'menu' : '(element, key, value)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.setAttrs',
+            \   'word' : '.dom.setAttrs',
             \   'menu' : '(element, attributes)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.setStyle',
+            \   'word' : '.dom.setBorderBoxHeight',
+            \   'menu' : '(element, height)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.setBorderBoxSize',
+            \   'menu' : '(element, size)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.setBorderBoxWidth',
+            \   'menu' : '(element, width)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.setPosition',
+            \   'menu' : '(element, position)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.dom.setStyle',
             \   'menu' : '(element, key, value)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.setStyles',
+            \   'word' : '.dom.setStyles',
             \   'menu' : '(element, styles)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.show',
+            \   'word' : '.dom.show',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.toggle',
+            \   'word' : '.dom.toggle',
             \   'menu' : '(element)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.dom.toggleClass',
+            \   'word' : '.dom.toggleClass',
             \   'menu' : '(element, className)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
+            \})
+" }}}1
+
+"/-------------------------------------------
+" Element Object {{{1
+call add(g:tangram_dictionay, {
+            \   'word' : '.element',
+            \   'menu' : '{each, events, extend...}',
+            \   'kind' : 'Object'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.element.each',
+            \   'menu' : '(node).each(iterator)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.element.events',
+            \   'menu' : '(node).events(fn)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.element.extend',
+            \   'menu' : '(json)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.element.Element',
+            \   'menu' : '(node)',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Ajax Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax',
+            \   'word' : '.ajax',
             \   'menu' : '{form, get, post...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.form',
-            \   'menu' : '(form, options)',
-            \   'kind' : 'func'
+            \   'word' : '.ajax.form',
+            \   'menu' : '(form [,options])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.get',
-            \   'menu' : '(url, onsuccess)',
-            \   'kind' : 'func'
+            \   'word' : '.ajax.get',
+            \   'menu' : '(url [,onsuccess])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.on',
-            \   'menu' : '(statuscode)',
-            \   'kind' : 'func'
+            \   'word' : '.ajax.post',
+            \   'menu' : '(url, data [,onsuccess])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.onbeforerequest',
-            \   'menu' : '',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.onfailure',
-            \   'menu' : '',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.post',
-            \   'menu' : '(url, data, onsuccess)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.ajax.request',
-            \   'menu' : '(url, options)',
-            \   'kind' : 'func'
+            \   'word' : '.ajax.request',
+            \   'menu' : '(url [,options])',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Array Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array',
+            \   'word' : '.array',
             \   'menu' : '{each, find, indexOf ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.each',
+            \   'word' : '.array.contains',
+            \   'menu' : '(source, obj)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.each',
+            \   'menu' : '(source, iterator [, thisObject])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.empty',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.every',
+            \   'menu' : '(source, iterator [,thisObject])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.filter',
+            \   'menu' : '(source, iterator [,thisObject])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.find',
             \   'menu' : '(source, iterator)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.filter',
-            \   'menu' : '(source, iterator)',
-            \   'kind' : 'func'
+            \   'word' : '.array.hash',
+            \   'menu' : '(keys [,values])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.find',
-            \   'menu' : '(source, iterator)',
-            \   'kind' : 'func'
+            \   'word' : '.array.indexOf',
+            \   'menu' : '(source, match [,fromIndex])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.indexOf',
-            \   'menu' : '(source, condition, position)',
-            \   'kind' : 'func'
+            \   'word' : '.array.lastIndexOf',
+            \   'menu' : '(source, match)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.lastIndexOf',
-            \   'menu' : '(source, condition)',
-            \   'kind' : 'func'
+            \   'word' : '.array.map',
+            \   'menu' : '(source, iterator [,thisObject])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.remove',
-            \   'menu' : '(source, condition)',
-            \   'kind' : 'func'
+            \   'word' : '.array.reduce',
+            \   'menu' : '(source, iterator [,initializer])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.removeAt',
+            \   'word' : '.array.remove',
+            \   'menu' : '(source, match)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.removeAt',
             \   'menu' : '(source, index)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.array.unique',
+            \   'word' : '.array.some',
+            \   'menu' : '(source, iterator)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.array.unique',
             \   'menu' : '(source [,compareFn])',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Lang Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang',
+            \   'word' : '.lang',
             \   'menu' : '{createClass, guid ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.Class',
+            \   'word' : '.lang.Class',
             \   'menu' : '{guid}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.Event',
+            \   'word' : '.lang.Event',
             \   'menu' : '{type, target}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.createClass',
-            \   'menu' : '(myClass, options)',
-            \   'kind' : 'func'
+            \   'word' : '.lang.createClass',
+            \   'menu' : '(constructor [, options])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.decontrol',
+            \   'word' : '.lang.createSingle',
+            \   'menu' : '(json)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.decontrol',
             \   'menu' : '(guid)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.guid',
+            \   'word' : '.lang.guid',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.inherits',
-            \   'menu' : '(subClass, superClass)',
-            \   'kind' : 'func'
+            \   'word' : '.lang.inherits',
+            \   'menu' : '(subClass, superClass [,className])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.instance',
+            \   'word' : '.lang.instance',
             \   'menu' : '(guid)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.isArray',
+            \   'word' : '.lang.isArray',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.isElement',
+            \   'word' : '.lang.isBoolean',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.isNumber',
+            \   'word' : '.lang.isDate',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.isObject',
+            \   'word' : '.lang.isFunction',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.isString',
+            \   'word' : '.lang.isElement',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.module',
-            \   'menu' : '(name, module, owner)',
-            \   'kind' : 'func'
+            \   'word' : '.lang.isNumber',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.lang.toArray',
-            \   'menu' : '(obj)',
-            \   'kind' : 'func'
+            \   'word' : '.lang.isObject',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.isString',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.module',
+            \   'menu' : '(name, module [,owner])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.toArray',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Swf Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.swf',
+            \   'word' : '.swf',
             \   'menu' : '{create, getMovie ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.swf.create',
-            \   'menu' : '(options, container)',
-            \   'kind' : 'func'
+            \   'word' : '.swf.create',
+            \   'menu' : '(options [,container])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.swf.createHTML',
+            \   'word' : '.swf.createHTML',
             \   'menu' : '(options)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.swf.getMovie',
+            \   'word' : '.swf.getMovie',
             \   'menu' : '(name)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.swf.version',
+            \   'word' : '.swf.version',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'property'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Browser Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser',
+            \   'word' : '.browser',
             \   'menu' : '{ie, chrome ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.chrome',
+            \   'word' : '.browser.chrome',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.firefox',
+            \   'word' : '.browser.firefox',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.ie',
+            \   'word' : '.browser.ie',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.isGecko',
+            \   'word' : '.browser.isGecko',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.isStrict',
+            \   'word' : '.browser.isStrict',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.isWebkit',
+            \   'word' : '.browser.isWebkit',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.maxthon',
+            \   'word' : '.browser.maxthon',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.opera',
+            \   'word' : '.browser.opera',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.browser.safari',
+            \   'word' : '.browser.safari',
             \   'menu' : '',
             \   'kind' : 'property'
             \})
@@ -653,349 +783,755 @@ call add(g:tangram_dictionay, {
 "/-------------------------------------------
 " Cookie Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie',
+            \   'word' : '.cookie',
             \   'menu' : '{get, set ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie.get',
+            \   'word' : '.cookie.get',
             \   'menu' : '(key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie.getRaw',
+            \   'word' : '.cookie.getRaw',
             \   'menu' : '(key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie.remove',
+            \   'word' : '.cookie.remove',
             \   'menu' : '(key, options)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie.set',
-            \   'menu' : '(key, value, options)',
-            \   'kind' : 'func'
+            \   'word' : '.cookie.set',
+            \   'menu' : '(key, value [,options])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.cookie.setRaw',
-            \   'menu' : '(key, value, options)',
-            \   'kind' : 'func'
+            \   'word' : '.cookie.setRaw',
+            \   'menu' : '(key, value [,options])',
+            \   'kind' : 'Function'
             \})
 
 " }}}1
 
 "/-------------------------------------------
-" Cookie Object {{{1
+" Json Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.json',
+            \   'word' : '.json',
             \   'menu' : '{encode, decode ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.json.decode',
+            \   'word' : '.json.decode',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.json.encode',
+            \   'word' : '.json.encode',
             \   'menu' : '(value)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.json.parse',
-            \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'word' : '.json.parse',
+            \   'menu' : '(data)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.json.stringify',
+            \   'word' : '.json.stringify',
             \   'menu' : '(value)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Object Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object',
+            \   'word' : '.object',
             \   'menu' : '{each, clone ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object.clone',
+            \   'word' : '.object.clone',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object.each',
+            \   'word' : '.object.each',
             \   'menu' : '(source, iterator)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object.extend',
+            \   'word' : '.object.extend',
             \   'menu' : '(target, source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object.keys',
+            \   'word' : '.object.isPlain',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.object.values',
+            \   'word' : '.object.keys',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.object.map',
+            \   'menu' : '(source, iterator)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.object.merge',
+            \   'menu' : '(target, source [,opt_options])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.object.values',
+            \   'menu' : '(source)',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Page Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page',
+            \   'word' : '.page',
             \   'menu' : '{getWidth, getHeight ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.createStyleSheet',
+            \   'word' : '.page.createStyleSheet', 
+            \   'menu' : '(options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.page.getHeight',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getMousePosition',
+            \   'word' : '.page.getMousePosition',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getScrollLeft',
+            \   'word' : '.page.getScrollLeft',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getScrollTop',
+            \   'word' : '.page.getScrollTop',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getViewHeight',
+            \   'word' : '.page.getViewHeight',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getViewWidth',
+            \   'word' : '.page.getViewWidth',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.getWidth',
+            \   'word' : '.page.getWidth',
             \   'menu' : '',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.loadCssFile',
+            \   'word' : '.page.lazyLoadImage',
+            \   'menu' : '([options])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.page.load',
+            \   'menu' : '(resources [,options])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.page.loadCssFile',
             \   'menu' : '(path)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.page.loadJsFile',
+            \   'word' : '.page.loadJsFile',
             \   'menu' : '(path)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.page.rules',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+" }}}1
+
+"/------------------------------------------- " 
+"Platform Object {{{1
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform',
+            \   'menu' : '{isIpad, isWindows ...}',
+            \   'kind' : 'Object'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isAndroid',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isIpad',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isIphone',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isMacintosh',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isWindows',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.platform.isX11',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+" }}}1
+
+"/------------------------------------------- " 
+"Event Object {{{1
+call add(g:tangram_dictionay, {
+            \   'word' : '.event',
+            \   'menu' : '{on, get ...}',
+            \   'kind' : 'Object'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.EventArg',
+            \   'menu' : '(event, [,win])',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.fire',
+            \   'menu' : '(element, type, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.get',
+            \   'menu' : '(Event [,win])',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.getKeyCode',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.getPageX',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.getPageY',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.getTarget',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.on',
+            \   'menu' : '(element, type, listener)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.once',
+            \   'menu' : '(element, type, listener)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.preventDefault',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.stop',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.stopPropagation',
+            \   'menu' : '(Event)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.un',
+            \   'menu' : '(element, type, listener)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.keyCode',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.pageX',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.pageY',
+            \   'menu' : '',
+            \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.event.target',
+            \   'menu' : '',
+            \   'kind' : 'property'
             \})
 " }}}1
 
 "/-------------------------------------------
-" Event Object {{{1
+" Fn Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event',
-            \   'menu' : '{on, get ...}',
-            \   'kind' : 'obj'
+            \   'word' : '.fn',
+            \   'menu' : '{bind, blank, ...}',
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.EventArg',
-            \   'menu' : '{event}',
-            \   'kind' : 'constructor'
+            \   'word' : '.fn.bind',
+            \   'menu' : '(handler [,obj, args])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.get',
-            \   'menu' : '(Event [,win])',
-            \   'kind' : 'func'
+            \   'word' : '.fn.blank',
+            \   'menu' : '',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.getKeyCode',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
+            \   'word' : '.fn.methodize',
+            \   'menu' : '(func [,attr])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.getPageX',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
+            \   'word' : '.fn.multize',
+            \   'menu' : '(func [,recursive])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.getPageY',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
+            \   'word' : '.fn.wrapReturnValue',
+            \   'menu' : '(func ,wrapper ,mode)',
+            \   'kind' : 'Function'
             \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.getTarget',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.on',
-            \   'menu' : '(element, type, listener)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.preventDefault',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.stop',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.stopPropagation',
-            \   'menu' : '(Event)',
-            \   'kind' : 'func'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.event.un',
-            \   'menu' : '(element, type, listener)',
-            \   'kind' : 'func'
-            \})
+
 " }}}1
 
 "/-------------------------------------------
 " Number Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.number',
+            \   'word' : '.number',
             \   'menu' : '{comma, pad}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.number.comma',
-            \   'menu' : '(source, length)',
-            \   'kind' : 'func'
+            \   'word' : '.number.comma',
+            \   'menu' : '(source [,length])',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.number.pad',
+            \   'word' : '.number.pad',
             \   'menu' : '(source, length)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.number.randomInt',
+            \   'menu' : '(min, max)',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " Sio Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.sio',
+            \   'word' : '.sio',
             \   'menu' : '{callByBrowser, callByServer}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.sio.callByBrowser',
-            \   'menu' : '(url, callback)',
-            \   'kind' : 'func'
+            \   'word' : '.sio.callByBrowser',
+            \   'menu' : '(url, opt_callback, opt_options)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.sio.callByServer',
-            \   'menu' : '(url, callback)',
-            \   'kind' : 'func'
+            \   'word' : '.sio.callByServer',
+            \   'menu' : '(url, callback, opt_options)',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
 " String Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string',
+            \   'word' : '.string',
             \   'menu' : '{decodeHTML, encodeHTML...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.decodeHTML',
+            \   'word' : '.string.decodeHTML',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.encodeHTML',
+            \   'word' : '.string.encodeHTML',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.escapeReg',
+            \   'word' : '.string.escapeReg',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.filterFormat',
-            \   'menu' : '(pattern, str)',
-            \   'kind' : 'func'
+            \   'word' : '.string.filterFormat',
+            \   'menu' : '(source, options)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.format',
-            \   'menu' : '(pattern, options)',
-            \   'kind' : 'func'
+            \   'word' : '.string.format',
+            \   'menu' : '(source, options)',
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.getByteLength',
+            \   'word' : '.string.formatColor',
+            \   'menu' : '(color)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.string.getByteLength',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.subByte',
+            \   'word' : '.string.subByte',
             \   'menu' : '(source, length)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.toCamelCase',
+            \   'word' : '.string.toCamelCase',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.toHalfWidth',
+            \   'word' : '.string.toHalfWidth',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.trim',
+            \   'word' : '.string.trim',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.string.wbr',
+            \   'word' : '.string.wbr',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 
 "/-------------------------------------------
-" String Object {{{1
+" Url Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.url',
+            \   'word' : '.url',
             \   'menu' : '{escapeSymbol, jsonToQuery ...}',
-            \   'kind' : 'obj'
+            \   'kind' : 'Object'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.url.escapeSymbol',
+            \   'word' : '.url.escapeSymbol',
             \   'menu' : '(source)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.url.getQueryValue',
+            \   'word' : '.url.getQueryValue',
             \   'menu' : '(url, key)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.url.jsonToQuery',
+            \   'word' : '.url.jsonToQuery',
             \   'menu' : '(json [,replacer])',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : 'baidu.url.queryToJson',
+            \   'word' : '.url.queryToJson',
             \   'menu' : '(url)',
-            \   'kind' : 'func'
+            \   'kind' : 'Function'
             \})
 " }}}1
 "
+"/-------------------------------------------
+" UI Object {{{1
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Accordion.Accordion',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Behavior',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Button.Button',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Carousel.Carousel',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.ColorPalette.ColorPalette',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.ColorPicker.ColorPicker',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Combox.Combox',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.DatePicker.DatePicker',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Decorator.Decorator',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Dialog.Dialog',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.dialog.alert',
+            \   'menu' : '{content, options}',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.dialog.confirm',
+            \   'menu' : '{content, options}',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.dialog.iframe',
+            \   'menu' : '{content, options}',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Input.Input',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Menubar.Menubar',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Modal.Modal',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Pager.Pager',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Popup.Popup',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.ScrollBar.ScrollBar',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.ScrollPanel.ScrollPanel',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.ScrollPanel.ScrollPanel',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Slider.Slider',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.StarRate.StarRate',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Suggestion.Suggestion',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Tab.Tab',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Table.Table',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Toolbar.Toolbar',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Tooltip.Tooltip',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.ui.Tree.Tree',
+            \   'menu' : '{options}',
+            \   'kind' : 'constructor'
+            \})
+" }}}1
+
+"/-------------------------------------------
+" Fx Object {{{1
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx',
+            \   'menu' : '{collapse, expand ...}',
+            \   'kind' : 'Object'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.collapse',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.current',
+            \   'menu' : '(element)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.expand',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.fadeIn',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.fadeOut',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.highlight',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.mask',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.move',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.moveBy',
+            \   'menu' : '(element, distance, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.moveTo',
+            \   'menu' : '(element, point, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.opacity',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.puff',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.pulsate',
+            \   'menu' : '(element, loop, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.remove',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.scale',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.scrollBy',
+            \   'menu' : '(element, distance, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.scrollTo',
+            \   'menu' : '(element, distance, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.shake',
+            \   'menu' : '(element, offset, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.zoomIn',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.fx.zoomOut',
+            \   'menu' : '(element, options)',
+            \   'kind' : 'Function'
+            \})
+" }}}1
 "/-------------------------------------------
 " vim: set fdm=marker:
