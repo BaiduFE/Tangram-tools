@@ -9,21 +9,21 @@
 " Version: 2.0
 " ChangeLog: 
 " 
-" 1. ´´½¨´Ë½Å±¾£¬Ö§³Ötangram1.1.0
+" 1. åˆ›å»ºæ­¤è„šæœ¬ï¼Œæ”¯æŒtangram1.1.0
 "           created 1.0  2010/11/13
 " --------------------------------------------------------------
-" 1. ĞŞ¸ÄÁËºËĞÄ¹Ø¼ü´Ê²éÑ¯µÄº¯Êı£¬ĞŞ¸´ÁË1.0ÖĞ´æÔÚµÄµÄÒ»Ğ©bug£¬e.g.
-"       a)  baidu.('xx')  ÎŞ·¨ÊäÈëg
-"       b)  window.baidu.sug  »áÄ¬ÈÏ±ä³Ébaidu.
-" 2. Ôö¼ÓÁËonPopupPostº¯ÊıµÄ¼ì²é£¬½â¾öÁË1.0ÖĞ´æÔÚµÄÁ½¸öÎÊÌâ
-"       a)  µ±Ã»ÓĞÆ¥ÅäÊ±£¬ÃüÁîĞĞ»á³öÎŞÆ¥ÅäµÄºìÉ«¾¯¸æ
-"       b)  µ±ÓĞÆ¥ÅäÊ±£¬Ä¬ÈÏµÚÒ»ÏîÊÇÊäÈëÄÚÈİ£¬ĞèÒª°´ÏÂ¼ü²ÅÄÜÑ¡Ôñ
-" 3. Ôö¼ÓÁËbaiduºÍTµÄÁ½¸öÃû³Æ¿Õ¼äÖ§³Ö
+" 1. ä¿®æ”¹äº†æ ¸å¿ƒå…³é”®è¯æŸ¥è¯¢çš„å‡½æ•°ï¼Œä¿®å¤äº†1.0ä¸­å­˜åœ¨çš„çš„ä¸€äº›bugï¼Œe.g.
+"       a)  baidu.('xx')  æ— æ³•è¾“å…¥g
+"       b)  window.baidu.sug  ä¼šé»˜è®¤å˜æˆbaidu.
+" 2. å¢åŠ äº†onPopupPostå‡½æ•°çš„æ£€æŸ¥ï¼Œè§£å†³äº†1.0ä¸­å­˜åœ¨çš„ä¸¤ä¸ªé—®é¢˜
+"       a)  å½“æ²¡æœ‰åŒ¹é…æ—¶ï¼Œå‘½ä»¤è¡Œä¼šå‡ºæ— åŒ¹é…çš„çº¢è‰²è­¦å‘Š
+"       b)  å½“æœ‰åŒ¹é…æ—¶ï¼Œé»˜è®¤ç¬¬ä¸€é¡¹æ˜¯è¾“å…¥å†…å®¹ï¼Œéœ€è¦æŒ‰ä¸‹é”®æ‰èƒ½é€‰æ‹©
+" 3. å¢åŠ äº†baiduå’ŒTçš„ä¸¤ä¸ªåç§°ç©ºé—´æ”¯æŒ
 "           updated to 2.0  2011/04/05
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " version checking & avoid load twice
-" vim°æ±¾¼ì²é£¬±ÜÃâ¼ÓÔØÁ½´Î
+" vimç‰ˆæœ¬æ£€æŸ¥ï¼Œé¿å…åŠ è½½ä¸¤æ¬¡
 if exists('g:tangram_acp_loaded')
     finish
 elseif v:version < 702
@@ -33,7 +33,7 @@ endif
 let g:tangram_acp_loaded = 1
 
 " give a off switcher, user can set g:tangram_acp_disabled = 1 to turn off this plugin
-" ¿ª¹Ø£¬¿ÉÒÔÉèÖÃg:tangram_acp_disabled = 1À´¹Ø±Õ´Ë¹¦ÄÜ
+" å¼€å…³ï¼Œå¯ä»¥è®¾ç½®g:tangram_acp_disabled = 1æ¥å…³é—­æ­¤åŠŸèƒ½
 if exists('g:tangram_acp_disabled') && g:tangram_acp_disabled == 1
     finish
 endif
@@ -52,14 +52,14 @@ endfunction
 function! tangramcomplete#CompleteTangram(findstart, base)
 
     if a:findstart
-        " »ñÈ¡µ±Ç°ĞĞµÄËùÓĞÄÚÈİ
+        " è·å–å½“å‰è¡Œçš„æ‰€æœ‰å†…å®¹
         let s:line = getline('.')
-        " ¹â±êËùÔÚÎ»ÖÃµÄÇ°Ò»¸ö×Ö·û
+        " å…‰æ ‡æ‰€åœ¨ä½ç½®çš„å‰ä¸€ä¸ªå­—ç¬¦
         let s:start = col('.') - 1
-        " ¹â±êËùÔÚÎ»ÖÃµÄÇ°2¸ö×Ö·û
+        " å…‰æ ‡æ‰€åœ¨ä½ç½®çš„å‰2ä¸ªå­—ç¬¦
         let s:compl_begin = col('.') - 2
-        " \k±íÊ¾Ò»¸ökeyword£¬ÕâĞĞµÄ×÷ÓÃÊÇÒ»Ö±ÍùÇ°Ë÷Òı£¬Ö±µ½Óöµ½Ò»¸ö·ÇkeywordµÄ×Ö·û¾ÍÍ£Ö¹
-        " ÓÃÀ´×öÆ¥ÅäµÄÆğÊ¼Î»ÖÃÏî
+        " \kè¡¨ç¤ºä¸€ä¸ªkeywordï¼Œè¿™è¡Œçš„ä½œç”¨æ˜¯ä¸€ç›´å¾€å‰ç´¢å¼•ï¼Œç›´åˆ°é‡åˆ°ä¸€ä¸ªékeywordçš„å­—ç¬¦å°±åœæ­¢
+        " ç”¨æ¥åšåŒ¹é…çš„èµ·å§‹ä½ç½®é¡¹
         while s:start >= 0 && s:line[s:start - 1] =~ '\%(\k\|-\|\.\)'
             let s:start -= 1
         endwhile
@@ -76,20 +76,20 @@ function! tangramcomplete#CompleteTangram(findstart, base)
 
     let s:result = []
 
-    " Ö§³ÖbaiduºÍTÁ½¸öÃû³Æ¿Õ¼ä
+    " æ”¯æŒbaiduå’ŒTä¸¤ä¸ªåç§°ç©ºé—´
     if s:line =~# 'baidu\|T'
-        " ´æ´¢Ãû³Æ¿Õ¼ä
+        " å­˜å‚¨åç§°ç©ºé—´
         let s:tangram_prefix = match(s:line, 'baidu')>-1? 'baidu' : 'T'
 
         let s:tangram_keyword = matchstr(s:line, '\s*'.s:tangram_prefix.'\(\.\|[a-zA-Z]\)*$')
         if s:tangram_keyword != ""
-            " ÕâĞĞÓÃÀ´½â¾ö·Çtangram´úÂë£¬È´°üº¬baidu¹Ø¼ü´Ê»áÎóÆ¥ÅäµÄÇé¿ö£¬±ÈÈçzhidao.baidu.com
+            " è¿™è¡Œç”¨æ¥è§£å†³étangramä»£ç ï¼Œå´åŒ…å«baiduå…³é”®è¯ä¼šè¯¯åŒ¹é…çš„æƒ…å†µï¼Œæ¯”å¦‚zhidao.baidu.com
             let s:real_keyword = substitute(s:tangram_keyword, '\s*'.s:tangram_prefix, s:tangram_prefix, '')
             for m in g:tangram_dictionay
-                " ×ÖµäÖĞÒÑ¾­²»ÔÙ±êÊ¶baidu»òÕßTÃû³Æ¿Õ¼ä
+                " å­—å…¸ä¸­å·²ç»ä¸å†æ ‡è¯†baiduæˆ–è€…Tåç§°ç©ºé—´
                 if s:tangram_prefix.m['word'] =~? '^'.s:real_keyword
                     if m['word'] !~ '^'.s:tangram_prefix
-                        " VIMµÄ¶ÔÏóÊı¾İÀàĞÍ²ÉÓÃÑ°Ö·ÒıÓÃµÄ·½Ê½£¬ËùÒÔÍ¨¹ıdeepcopyº¯Êı½øĞĞ¸´ÖÆ
+                        " VIMçš„å¯¹è±¡æ•°æ®ç±»å‹é‡‡ç”¨å¯»å€å¼•ç”¨çš„æ–¹å¼ï¼Œæ‰€ä»¥é€šè¿‡deepcopyå‡½æ•°è¿›è¡Œå¤åˆ¶
                         let s:the_math = deepcopy(m) 
                         call extend(s:the_math, {'word' : s:tangram_prefix.m['word']})
                     endif
