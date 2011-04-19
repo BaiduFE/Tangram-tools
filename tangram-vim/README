@@ -1,15 +1,33 @@
-Tangram vim插件
-作者:小强
-======================================================
-安装:
+% Tangram vim插件
+% 作者:小强
+% 2011-04-19
 
-UNIX && LINUX:
+## 手动安装:
+
+### UNIX && LINUX:
+
 1. cp tangramComplete.vim ~/.vim/autoload/
+
 2. cp tangramdictionay.vim ~/.vim/plugin/
 
-WINDOWS:
+### WINDOWS:
+
 1.将tangramComplete.vim 拷贝到 vimfiles/autoload/ 下
+
 2.将tangramdictionay.vim 拷贝到 vimfiles/plugin/  下
 
-使用:
-使用 Ctrl + n 补全关键字
+
+
+## 自动安装：
+
+### UNIX && LINUX:
+
+    sh install.sh
+
+### WINDOWS
+
+    install.bat
+
+## 使用:
+
+新建一个js文件，然后输入baidu或者T关键词，看是否有自动完成提示下拉列表出现
