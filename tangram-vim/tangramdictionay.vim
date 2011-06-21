@@ -15,6 +15,9 @@
 " 1. 修改了自动命令的相关实现，提升交互体验
 " 2. 完善tangramdictionary，支持Tangram1.3.5
 "           updated to 2.0 2011/04/06
+" -------------------------------------------
+"  1. 接口升级，支持Tangram1.3.9
+"           updated to 2.0 2011/06/21
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if exists('g:tangram_dictionay')
@@ -695,6 +698,11 @@ call add(g:tangram_dictionay, {
             \   'menu' : '(source)',
             \   'kind' : 'Function'
             \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.eventCenter',
+            \   'menu' : '{addEventListener, dispatchEvent}',
+            \   'kind' : 'Object'
+            \})
 " }}}1
 
 "/-------------------------------------------
@@ -723,6 +731,11 @@ call add(g:tangram_dictionay, {
             \   'word' : '.swf.version',
             \   'menu' : '',
             \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.swf.Proxy',
+            \   'menu' : '(id, property, [, loadedHandler])',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
