@@ -15,6 +15,9 @@
 " 1. 修改了自动命令的相关实现，提升交互体验
 " 2. 完善tangramdictionary，支持Tangram1.3.5
 "           updated to 2.0 2011/04/06
+" -------------------------------------------
+"  1. 接口升级，支持Tangram1.3.9
+"           updated to 2.0 2011/06/21
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if exists('g:tangram_dictionay')
@@ -695,6 +698,11 @@ call add(g:tangram_dictionay, {
             \   'menu' : '(source)',
             \   'kind' : 'Function'
             \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.lang.eventCenter',
+            \   'menu' : '{addEventListener, dispatchEvent}',
+            \   'kind' : 'Object'
+            \})
 " }}}1
 
 "/-------------------------------------------
@@ -723,6 +731,11 @@ call add(g:tangram_dictionay, {
             \   'word' : '.swf.version',
             \   'menu' : '',
             \   'kind' : 'property'
+            \})
+call add(g:tangram_dictionay, {
+            \   'word' : '.swf.Proxy',
+            \   'menu' : '(id, property, [, loadedHandler])',
+            \   'kind' : 'Function'
             \})
 " }}}1
 
@@ -1279,7 +1292,7 @@ call add(g:tangram_dictionay, {
 "/-------------------------------------------
 " UI Object {{{1
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Accordion.Accordion',
+            \   'word' : '.ui.Accordion',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
@@ -1289,137 +1302,122 @@ call add(g:tangram_dictionay, {
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Button.Button',
+            \   'word' : '.ui.Button',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Carousel.Carousel',
+            \   'word' : '.ui.Carousel',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.ColorPalette.ColorPalette',
+            \   'word' : '.ui.ColorPalette',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.ColorPicker.ColorPicker',
+            \   'word' : '.ui.ColorPicker',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Combox.Combox',
+            \   'word' : '.ui.Combox',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.DatePicker.DatePicker',
+            \   'word' : '.ui.DatePicker',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Decorator.Decorator',
+            \   'word' : '.ui.Decorator',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Dialog.Dialog',
+            \   'word' : '.ui.Dialog',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.dialog.alert',
-            \   'menu' : '{content, options}',
-            \   'kind' : 'Function'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : '.ui.dialog.confirm',
-            \   'menu' : '{content, options}',
-            \   'kind' : 'Function'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : '.ui.dialog.iframe',
-            \   'menu' : '{content, options}',
-            \   'kind' : 'Function'
-            \})
-call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Input.Input',
+            \   'word' : '.ui.Input',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Menubar.Menubar',
+            \   'word' : '.ui.Menubar',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Modal.Modal',
+            \   'word' : '.ui.Modal',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Pager.Pager',
+            \   'word' : '.ui.Pager',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Popup.Popup',
+            \   'word' : '.ui.Popup',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.ScrollBar.ScrollBar',
+            \   'word' : '.ui.ScrollBar',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.ScrollPanel.ScrollPanel',
+            \   'word' : '.ui.ScrollPanel',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.ScrollPanel.ScrollPanel',
+            \   'word' : '.ui.ScrollPanel',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Slider.Slider',
+            \   'word' : '.ui.Slider',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.StarRate.StarRate',
+            \   'word' : '.ui.StarRate',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Suggestion.Suggestion',
+            \   'word' : '.ui.Suggestion',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Tab.Tab',
+            \   'word' : '.ui.Tab',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Table.Table',
+            \   'word' : '.ui.Table',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Toolbar.Toolbar',
+            \   'word' : '.ui.Toolbar',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Tooltip.Tooltip',
+            \   'word' : '.ui.Tooltip',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
 call add(g:tangram_dictionay, {
-            \   'word' : '.ui.Tree.Tree',
+            \   'word' : '.ui.Tree',
             \   'menu' : '{options}',
             \   'kind' : 'constructor'
             \})
