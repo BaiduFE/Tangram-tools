@@ -4,7 +4,7 @@
 # ***************************************************************************
 # 
 # Copyright (c) 2011 Baidu.com, Inc. All Rights Reserved
-# $Id: Ftangram.py 88712 2011-08-23 03:43:06Z  $ 
+# $Id: Ftangram.py 89685 2011-08-31 07:04:39Z  $ 
 # 
 # **************************************************************************/
  
@@ -16,12 +16,15 @@ import logging
 import urllib2
 import urllib
 import codecs
+import httplib
+import socket
+import cStringIO
 from optparse import OptionParser
  
  
 __author__ = 'leeight <liyubei@baidu.com>'
 __date__ = '2011/08/19 13:42:18'
-__revision = '$Revision: 88712 $'
+__revision = '$Revision: 89685 $'
 
 
 from closure_linter import javascripttokenizer
@@ -88,17 +91,12 @@ def fetch_remote_source(tokens):
 
   tokens = normalize_api_name(tokens)
   src = "\n".join(map(lambda x : "///import %s;" % x, tokens))
-  request = urllib2.Request("http://tangram.baidu.com/codesearch/script/code.php")
+  request = urllib2.Request("http://tangram.baidu.com/codesearch/code.php")
   request.add_data(urllib.urlencode({
     "compress" : "source",
-    "isLite" : "0",
-    "nobase" : "false",
-    "nouibase" : "false",
-    "short_key" : "",
-    "short_value" : "",
     "src" : src,
-    "tag" : "src",
-    "version" : "tangram-component_stable",
+    "version" : "Tangram-component",
+    "slavelib" : "Tangram-base",
   }))
   handler = urllib2.urlopen(request)
   try:
