@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+base_dir=$(dirname "$0")
+lib_dir="${base_dir}/lib/google-closure-linter"
+
+# Use the batch file as an entry point if on cygwin.
+if [ "${OSTYPE}" = "cygwin" -a "${TERM}" != "xterm" ]; then
+   ${base_dir}/Ftangram.bat "$@"
+   exit
+fi
+
+export PYTHONPATH="${lib_dir}"
+exec python -S "${base_dir}/Ftangram.py" "$@"
